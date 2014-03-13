@@ -1,0 +1,33 @@
+#A Python tool to calculate both inflation pressure and withdrawal pressure in PSI
+#for a straddle packer test
+#Programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+#Website: www.coalgeology.com
+
+#NOTE: This code will be converted to a tkinter GUI application and executable files will be available for download
+# from coalgeology.com. Look for GUI source code in the repository.
+
+class PackerInflation:
+    def __init__(self,Dp,Dw,Sp):
+        #G=Inflation Pressure at Gauge
+        self.Dp=Dp #Depth to top of packer in feet
+        self.Dw=Dw #Depth to static water level in well in feet
+        self.Sp=Sp #Unconfided packer pressure rating for the well in PSI
+        self.Pp=self.Dp*.43 #Injection pump pressure in PSI
+
+    def withdrawPressure(self):
+         m=((self.Dp-self.Dw)*.43)+self.Sp+((self.Dp-self.Dw)*.43*.2)
+         return m
+
+    def injectionPressureWater(self):
+        m=((self.Dp*.43)+self.Sp+self.Pp)*1.1
+        n=(self.Sp+(self.Dp-self.Dw))
+        if m>n:
+            return n
+        else:
+            return m
+
+
+#Create an Object        
+
+p=PackerInflation(200,100,500)
+p.injectionPressureWater()
