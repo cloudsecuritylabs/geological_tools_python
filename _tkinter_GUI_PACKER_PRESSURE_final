@@ -1,6 +1,6 @@
 '''
 This program is applicable to calculate inflation pressure in PSI for various packer types.
-All of the packer manufacturers would provive two important facts that are essential to calculate
+All of the packer manufacturers would provide two important facts that are essential to calculate
 required inflation pressure for a 1)withdrawal test (pump out) or a 1)injection test (pump in).
 You need to know:
 a) unconfined pressure rating
