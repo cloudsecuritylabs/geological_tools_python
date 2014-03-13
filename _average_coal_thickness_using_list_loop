@@ -1,0 +1,43 @@
+#Goal: Storing geologic data is a list and calculate averages based on
+#criteria specified
+#Programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+#Website: www.coalgeology.com
+
+# This example Python code uses coal thickness as an example
+
+#Create a list to store borehole IDS
+#borehole ids can be accessed using indexing and slicing.
+boreholes=['a','b','c','d','e']
+print(boreholes[0])
+
+#create a list to store coal thicknesses in feet
+coalthickness=[3.4,4.4,3.9,4.6,4.3]
+#coal thickness can be accessed using indexing and slicing.
+coalthickness[1]
+
+#A for loop can be used to print contents of a loop.
+for coalthick in coalthickness:
+	print(coalthick)
+
+#A for loop can be used to perform mathematical calculations
+#Calculate average thickness of coal seams.	
+s=0
+for coalthick in coalthickness:
+    s=s+coalthick
+print(s)
+print(len(coalthickness))
+print(s/len(coalthickness))
+
+#more advanced for loop to calculate coal thickness when coal is at least 4 feet
+      
+L4=[] # a list to contain thicknesses greater than 4 feet
+for coalthick in coalthickness:
+    if coalthick>=4:
+        L4.append(coalthick)
+print(L4, "List of thicknesses greater than 4 feet")
+s=0
+for coalthick in L4:
+    s=s+coalthick
+print(len(L4))
+print(s/len(L4))
+#print(sum(L4)/len(L4))
