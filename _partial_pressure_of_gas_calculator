@@ -1,0 +1,69 @@
+#Python program for a common chemistry problem
+#use of Python Class and Modules
+#Using constants in Python
+#P=n.R.T/V
+#P(total)=P(1)+P(2)......P(n)
+
+#Goal:
+#calculate partial pressure of each individual gas
+#add partial pressure of each gases to calculate total pressure.
+
+#Programmer: Ankan Basu, CPG, Hydrogeologist, Geologist
+#Date: 3/11/14
+
+"""
+Problem:
+A sealed 350 L container contains two gases: 5.0 gm of oxygen and
+18.0 g of of nitrogen. What is the partial pressure of oxygen gas at STP?
+
+at STP
+T=273.15 K
+P=100 Kpa = 0.987 atm
+
+"""
+import math
+class PartialPressure:
+    
+    def __init__(self, name):
+        print("Welcome", name)
+        self.R=0.0821 #L.atm/mol.K
+        self.name=name
+        
+    def get_args(self):
+        #Enter weight from the problem set in grams
+        self.weight=input("Enter weight in grams\n")
+        print(self.weight, "weight in grams")
+
+        #Enter Molecular Weight of the gas (or molar mass - search google)
+        self.mol_mass=input("Enter molar mass\n")
+        print(self.mol_mass, "Moler mass/molecular weight")
+
+        #Enter volume of the gas from the problem set in mililiters.
+        self.vol=input("Enter volume in mililiters\n")
+        print(self.vol, "Volume in ml")
+
+
+        #Enter temperature of the gas from the problem set in Kelvin.
+        self.T=input("Enter Temperature in K\n")
+        print(self.T, "Temperature in K")        
+              
+    def calc_moles(self):
+        #this fuction first calculate the number of moles of the gas.
+        self.n=float(self.weight)/float(self.mol_mass)
+        return self.n
+
+    def calc_pp(self):
+        self.pp=self.calc_moles()*float(self.R)*float(self.T)*1000/float(self.vol)
+        return self.pp
+    def answer(self):
+        print("The partial pressure of", self.name,"is: %.2f atm" % (self.calc_pp()))
+        print("The partial pressure of", self.name,"is: %.1f Kpa" % (self.calc_pp()*100/.987))
+        print("The partial pressure of", self.name,"is: %4.1f Mpa" % (self.calc_pp()*100/(1000*.987)))
+         
+              
+
+o=PartialPressure("Oxygen")
+n=PartialPressure("Nitrogen")
+He=PartialPressure("He")
+F2=PartialPressure("F2")
+Ar=PartialPressure("Ar")
