@@ -1,0 +1,83 @@
+
+#programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+from tkinter import *
+import math
+
+class myApp:
+
+
+    def __init__(self, master):
+        #self.frame=Frame(frame)
+        #frame.grid()
+
+        self.container=Frame(master)
+        self.container.grid()
+        #self.container.grid(row=10, column=10)
+
+
+
+
+        self.label1=Label(self.container, text="H+ or OH- concentration Calculator", fg='red').grid(row=0, column=0)
+        self.label2=Label(self.container, text="Enter Kw at fixed temperature").grid(row=1, column=0)
+        self.label3=Label(self.container, text="Enter H+ or OH- concentration").grid(row=2, column=0)
+
+
+        self.Kw=StringVar()
+        self.con=StringVar()
+        self.myhKw=Entry(self.container, textvariable=self.Kw).grid(row=1, column=1)
+        self.mycon=Entry(self.container, textvariable=self.con).grid(row=2, column=1)
+
+        self.var1=IntVar()
+        self.var2=IntVar()
+        self.c1 = Checkbutton(self.container, text="H+", variable=self.var1, onvalue = 1, offvalue = 0, command=self.cf1)
+        self.c1.grid(row=2, column=2)
+        self.c2 = Checkbutton(self.container, text="OH-", variable=self.var2,onvalue = 1, offvalue = 0, command=self.cf2)
+        self.c2.grid(row=2,column=3)
+
+        #Radiobutton(master, text="One", variable=v, value=1, command=calculate).grid(row=1, column=1)
+        #Radiobutton(master, text="Two", variable=v, value=2, command=calculate).grid(row=1, column=2)
+
+        #self.mybutton1=Button(self.container, text='Calculate Wages', command=calculatewages).grid(row=3, column=0)
+        self.mybutton1=Button(self.container, text='Calculate')
+        self.mybutton1.grid(row=3, column=0)
+        self.mybutton1.bind("<Button-1>", self.calculate)
+        
+
+    def calculate(self, event):
+        try:
+            a=float(self.Kw.get())
+            b=float(self.con.get())
+            c=a/b
+            if(self.var1.get()==1 and self.var2.get()==0):
+                self.labelresult=Label(self.container, text="Your OH- concentration is: $ %.2e" % c).grid(row=4, column=0, sticky=W)
+                self.pH=Label(self.container, text="Your pH  is: $ %.2f" % -math.log10(b)).grid(row=5, column=0,sticky=W)
+                self.OH=Label(self.container, text="Your pOH is: $ %.2f" % -math.log10(c)).grid(row=6, column=0,sticky=W)
+                             
+            elif(self.var1.get()==0 and self.var2.get()==1):
+                self.labelresult=Label(self.container, text="Your H+ concentration is: $ %.2e" % c).grid(row=4, column=0)
+                self.pH=Label(self.container, text="Your pH  is: $ %.2f" % -math.log10(c)).grid(row=5, column=0,sticky=W)
+                self.OH=Label(self.container, text="Your pOH is: $ %.2f" % -math.log10(b)).grid(row=6, column=0,sticky=W)
+            else:
+                self.labelresult=Label(self.container, text="Select only one checkbox  for calculation please").grid(row=4, column=0)
+        except ValueError:
+            pass
+    def cf1(self):
+        pass
+
+    def cf2(self):
+        pass
+
+#Variables = Kw = 1e-14
+#H+=OH in water
+
+
+#Radiobutton(master, text="One", variable=v, value=1).pack(anchor=W)
+#Radiobutton(master, text="Two", variable=v, value=2).pack(anchor=W)
+
+myGUI=Tk()
+myGUI.geometry('500x200+500+200')
+myGUI.title('pH Calculator')
+myapp=myApp(myGUI)
+
+myGUI.mainloop()
+
