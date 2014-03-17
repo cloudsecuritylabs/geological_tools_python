@@ -41,7 +41,7 @@ class myApp:
         H=10**(-ph)
         kw=H*H
         try:                    
-            self.labelresult=Label(self.container, text="Your OH- concentration is: %.2e" % kw).grid(row=4, column=0,  sticky='W')
+            self.labelresult=Label(self.container, text="Kw is: %.2e" % kw).grid(row=4, column=0,  sticky='W')
 
         except ValueError:
             pass
