@@ -1,0 +1,62 @@
+#Calculate Gibbs Free Energy when dG(reaction), dS(reaction) are given
+#Specify temperature to calculate Gibbs Free Energy
+
+
+#Programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+#Experience: 10+ years of experience in mining and consulting field
+#website: www.coalgeology.com
+#contact: basu.ankan@gmail.com
+#Linkedin resume: http://www.linkedin.com/in/ankanbasu
+
+
+from tkinter import *
+import math
+
+class myApp:
+
+
+    def __init__(self, master):
+        self.container=Frame(master)
+        self.container.grid()
+        #Heading#
+        self.label1=Label(self.container, text="Gibbs Free Energy Calculator", fg='red').grid(row=0, columnspan=2)
+
+        #Label for the Input Fields
+        self.label2=Label(self.container, text="Enter dH(reaction) in Kj/mol").grid(row=1, column=0, sticky="W")
+        self.label3=Label(self.container, text="Enter dS(reaction) in J/mol.K").grid(row=2, column=0,sticky="W")
+        self.label3=Label(self.container, text="Enter temperature in centegrade (will be converted to K").grid(row=3, column=0,sticky="W")
+
+        
+        #Create Entry box for the labels
+        self.dH=StringVar()
+        self.dS=StringVar()
+        self.T=StringVar()
+        self.mydG=Entry(self.container, textvariable=self.dH).grid(row=1, column=1)
+        self.mydS=Entry(self.container, textvariable=self.dS).grid(row=2, column=1)
+        self.myY=Entry(self.container, textvariable=self.T).grid(row=3, column=1)
+
+        #create button to calculate Gibbs Free Energy using entry values
+        self.mybutton1=Button(self.container, text='Calculate')
+        self.mybutton1.grid(row=4, column=0,sticky="W")
+        self.mybutton1.bind("<Button-1>", self.calculate)
+        
+
+    def calculate(self, event):
+        try:
+            a=float(self.dH.get())
+            b=float(self.dS.get())
+            c=float(self.T.get())
+            #Equation to calculate Gibbs Free Energy is dG=dH-T.dS
+            dG=a-(b*(c+273)/1000) # here we convert temperature from celcius to Kelvin and conver entropy to Kj/mol
+            self.labelresult=Label(self.container, text="Gibbs Free energy is : %.2f in Kj/mol" % dG, bg='yellow').grid(row=5, column=0, sticky=W)
+            if(dG<0):
+                self.labeltoo=Label(self.container, text="Reaction is spontaneous").grid(row=6, column=0, sticky=W)
+        except ValueError:
+            pass
+
+myGUI=Tk()
+myGUI.geometry('500x200+500+200')
+myGUI.title('Gibbs Free Energy Calculator')
+myapp=myApp(myGUI)
+
+myGUI.mainloop()
