@@ -1,0 +1,55 @@
+#programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+from tkinter import *
+import math
+
+#calculate Kw for pure water from a given pH
+#We are writing this app as pH+pOH=!14 when T=!25 degree Celcius.
+
+
+#Programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+#Experience: 10+ years of experience in mining and consulting field
+#website: www.coalgeology.com
+#contact: basu.ankan@gmail.com
+#Linkedin resume: http://www.linkedin.com/in/ankanbasu
+
+class myApp:
+
+
+    def __init__(self, master):
+
+        self.container=Frame(master)
+        self.container.grid()
+
+        #design header
+        self.label1=Label(self.container, text="Find Kw from a given pH for PURE water", fg='yellow', bg='black').grid(row=0, columnspan=2)
+        #create a label for the entry box
+        self.label2=Label(self.container, text="Enter pH at fixed temperature").grid(row=1, column=0, sticky='W')
+
+
+        #draw the entry box
+        self.pH=StringVar()
+        self.mypH=Entry(self.container, textvariable=self.pH).grid(row=1, column=1, sticky='W')
+
+        #create button and bind to the event
+        self.mybutton1=Button(self.container, text='Calculate Kw')
+        self.mybutton1.grid(row=2, column=0, sticky='W')
+        self.mybutton1.bind("<Button-1>", self.calculate)
+        
+
+    def calculate(self, event):
+        ph=float(self.pH.get())  
+        H=10**(-ph)
+        kw=H*H
+        try:                    
+            self.labelresult=Label(self.container, text="Your OH- concentration is: %.2e" % kw).grid(row=4, column=0,  sticky='W')
+
+        except ValueError:
+            pass
+
+
+myGUI=Tk()
+myGUI.geometry('400x200+500+200')
+myGUI.title('Kw Calculator')
+myapp=myApp(myGUI)
+
+myGUI.mainloop()
