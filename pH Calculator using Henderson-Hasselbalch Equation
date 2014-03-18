@@ -1,0 +1,102 @@
+#programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+from tkinter import *
+import math
+
+# this is a GUI application for calculating pH of a buffer solution using Henderson - Hasselbalch Equation
+#####################
+#Henderson - Hasselbalch Equation: pH=pKa + log10[base/acid]
+#####################
+
+#base and acid concentrations are generally provided.
+#If pKb is provided, this program would calculate the proper pKa using using 1.0e-14 assumption for Kw
+
+
+#Programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+#Experience: 10+ years of experience in mining and consulting field
+#website: www.coalgeology.com
+#contact: basu.ankan@gmail.com
+#Linkedin resume: http://www.linkedin.com/in/ankanbasu
+
+#note: 3/17/17, code updated.
+
+class myApp:
+
+
+    def __init__(self, master):
+        #create a frame
+        self.container=Frame(master)
+        self.container.grid()
+        #create a header
+        self.label1=Label(self.container, text="pH Calculator using Henderson-Hasselbalch Equation", fg='yellow', bg='black')
+        self.label1.grid(row=0, columnspan=4)
+
+        #create label for entry boxes - we need to ask for [base], [acid] and pK and add check box for either pKa or pKb
+        self.label2=Label(self.container, text="Enter molar concentration of base")
+        self.label2.grid(row=1, column=0, sticky='W')
+        
+        self.label3=Label(self.container, text="Enter molar concentration of acid")
+        self.label3.grid(row=2, column=0, sticky='W')
+
+        self.label4=Label(self.container, text="Enter K, select if Ka or Kb")
+        self.label4.grid(row=3, column=0, sticky='W')
+
+        #create three entry boxes
+        self.base=StringVar()
+        self.acid=StringVar()
+        self.k=StringVar()
+        self.mybase=Entry(self.container, textvariable=self.base).grid(row=1, column=1, sticky='W')
+        self.myacid=Entry(self.container, textvariable=self.acid).grid(row=2, column=1, sticky='W')
+        self.mypk=Entry(self.container, textvariable=self.k).grid(row=3, column=1, sticky='W')
+
+        #add two check boxes
+        self.var1=IntVar()
+        self.var2=IntVar()
+        self.c1 = Checkbutton(self.container, text="Ka", variable=self.var1, onvalue = 1, offvalue = 0)
+        self.c1.grid(row=3, column=2)
+        self.c2 = Checkbutton(self.container, text="Kb", variable=self.var2,onvalue = 1, offvalue = 0)
+        self.c2.grid(row=3,column=3)
+
+        #create button to calculate pH, bind event to self.calculate
+        self.mybutton1=Button(self.container, text='Calculate')
+        self.mybutton1.grid(row=4, column=0, sticky='W')
+        self.mybutton1.bind("<Button-1>", self.calculate)
+
+        #create button to reset
+        self.mybutton1=Button(self.container, text='Reset')
+        self.mybutton1.grid(row=5, column=0, sticky='W')
+        self.mybutton1.bind("<Button-1>", self.reset)
+        
+
+    def calculate(self, event):
+        try:
+            mybase=float(self.base.get())
+            myacid=float(self.acid.get())
+            myk=float(self.k.get())
+                      
+            if(self.var1.get()==1 and self.var2.get()==0):
+                pH=-math.log10(myk)+math.log10(mybase/myacid)
+                self.pH=Label(self.container, text="Your pH  is:  %.2f" % pH)
+                self.pH.grid(row=7, column=0, sticky='W')
+
+                             
+            elif(self.var1.get()==0 and self.var2.get()==1):
+                pH=-math.log10(1e-14/myk)+math.log10(mybase/myacid)
+                self.pH=Label(self.container, text="Your pH  is:  %.2f" % pH)
+                self.pH.grid(row=7, column=0, sticky='W')
+            else:
+                self.labelresult=Label(self.container, text="Select only one checkbox  for calculation please")
+                self.labelresult.grid(row=7, column=0)
+        except ValueError:
+            pass
+        
+    def reset(self,event):
+            self.pH.config(text="")
+
+
+
+myGUI=Tk()
+myGUI.geometry('400x200+500+200')
+myGUI.title('pH Calculator using Henderson-Hasselbalch Equation')
+myapp=myApp(myGUI)
+
+myGUI.mainloop()
