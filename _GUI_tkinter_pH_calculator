@@ -10,22 +10,22 @@ import math
 #Linkedin resume: http://www.linkedin.com/in/ankanbasu
 
 #note: 3/17/17, code updated.
+#added reset button. fixed bug. In next version will add better comments.
 
 class myApp:
 
 
     def __init__(self, master):
-        #self.frame=Frame(frame)
-        #frame.grid()
 
         self.container=Frame(master)
         self.container.grid()
-        #self.container.grid(row=10, column=10)
 
-
-        self.label1=Label(self.container, text="H+ or OH- concentration Calculator", fg='yellow', bg='black').grid(row=0, columnspan=4)
-        self.label2=Label(self.container, text="Enter Kw at fixed temperature").grid(row=1, column=0, sticky='W')
-        self.label3=Label(self.container, text="Enter H+ or OH- concentration or just pH, select box").grid(row=2, column=0, sticky='W')
+        self.label1=Label(self.container, text="H+ or OH- concentration Calculator", fg='yellow', bg='black')
+        self.label1.grid(row=0, columnspan=4)
+        self.label2=Label(self.container, text="Enter Kw at fixed temperature")
+        self.label2.grid(row=1, column=0, sticky='W')
+        self.label3=Label(self.container, text="Enter H+ or OH- concentration or just pH, select box")
+        self.label3.grid(row=2, column=0, sticky='W')
 
 
         self.Kw=StringVar()
@@ -36,20 +36,20 @@ class myApp:
         self.var1=IntVar()
         self.var2=IntVar()
         self.var3=IntVar()
-        self.c1 = Checkbutton(self.container, text="H+", variable=self.var1, onvalue = 1, offvalue = 0, command=self.cf1)
+        self.c1 = Checkbutton(self.container, text="H+", variable=self.var1, onvalue = 1, offvalue = 0)
         self.c1.grid(row=2, column=2)
-        self.c2 = Checkbutton(self.container, text="OH-", variable=self.var2,onvalue = 1, offvalue = 0, command=self.cf2)
+        self.c2 = Checkbutton(self.container, text="OH-", variable=self.var2,onvalue = 1, offvalue = 0)
         self.c2.grid(row=2,column=3)
-        self.c3 = Checkbutton(self.container, text="pH", variable=self.var3,onvalue = 1, offvalue = 0, command=self.cf2)
+        self.c3 = Checkbutton(self.container, text="pH", variable=self.var3,onvalue = 1, offvalue = 0)
         self.c3.grid(row=2,column=4)
 
-        #Radiobutton(master, text="One", variable=v, value=1, command=calculate).grid(row=1, column=1)
-        #Radiobutton(master, text="Two", variable=v, value=2, command=calculate).grid(row=1, column=2)
-
-        #self.mybutton1=Button(self.container, text='Calculate Wages', command=calculatewages).grid(row=3, column=0)
         self.mybutton1=Button(self.container, text='Calculate')
         self.mybutton1.grid(row=3, column=0, sticky='W')
         self.mybutton1.bind("<Button-1>", self.calculate)
+
+        self.mybutton1=Button(self.container, text='Reset')
+        self.mybutton1.grid(row=4, column=0, sticky='W')
+        self.mybutton1.bind("<Button-1>", self.reset)
         
 
     def calculate(self, event):
@@ -59,35 +59,42 @@ class myApp:
             
             if(self.var3.get()==1):
                 c=a/(10**(-b))
-                self.labelresult=Label(self.container, text="Your OH- concentration is: $ %.2e" % c).grid(row=4, column=0,  sticky='W')
+                self.labelresult=Label(self.container, text="Your OH- concentration is: $ %.2e" % c)
+                self.labelresult.grid(row=6, column=0,  sticky='W')
+
            
-            elif(self.var1.get()==1 and self.var2.get()==0):
+            elif(self.var1.get()==1 and self.var2.get()==0 and self.var3.get()==0):
                 c=a/b
-                self.labelresult=Label(self.container, text="Your OH- concentration is: $ %.2e" % c).grid(row=4, column=0,  sticky='W')
-                self.pH=Label(self.container, text="Your pH  is:  %.2f" % -math.log10(b)).grid(row=5, column=0, sticky='W')
-                self.OH=Label(self.container, text="Your pOH is:  %.2f" % -math.log10(c)).grid(row=6, column=0, sticky='W')
+                self.labelresult=Label(self.container, text="Your OH- concentration is: $ %.2e" % c)
+                self.labelresult.grid(row=6, column=0,  sticky='W')
+                self.pH=Label(self.container, text="Your pH  is:  %.2f" % -math.log10(b))
+                self.pH.grid(row=7, column=0, sticky='W')
+                self.OH=Label(self.container, text="Your pOH is:  %.2f" % -math.log10(c))
+                self.OH.grid(row=8, column=0, sticky='W')
                              
-            elif(self.var1.get()==0 and self.var2.get()==1):
+            elif(self.var1.get()==0 and self.var2.get()==1 and self.var3.get()==0):
                 c=a/b
-                self.labelresult=Label(self.container, text="Your H+ concentration is: $ %.2e" % c).grid(row=4, column=0)
-                self.pH=Label(self.container, text="Your pH  is:  %.2f" % -math.log10(c)).grid(row=5, column=0, sticky='W')
-                self.OH=Label(self.container, text="Your pOH is:  %.2f" % -math.log10(b)).grid(row=6, column=0, sticky='W')
+                self.labelresult=Label(self.container, text="Your H+ concentration is: $ %.2e" % c)
+                self.labelresult.grid(row=6, column=0,sticky='W')
+                self.pH=Label(self.container, text="Your pH  is:  %.2f" % -math.log10(c))
+                self.pH.grid(row=7, column=0, sticky='W')
+                self.OH=Label(self.container, text="Your pOH is:  %.2f" % -math.log10(b))
+                self.OH.grid(row=8, column=0, sticky='W')
             else:
-                self.labelresult=Label(self.container, text="Select only one checkbox  for calculation please").grid(row=4, column=0)
+                self.labelresult=Label(self.container, text="Select only one checkbox  for calculation please")
+                self.labelresult.grid(row=6, column=0)
         except ValueError:
             pass
-    def cf1(self):
-        pass
+        
+    def reset(self,event):
+        if(self.var3.get()==1):
+            self.labelresult.config(text="")
 
-    def cf2(self):
-        pass
+        else:
+            self.labelresult.config(text="")
+            self.pH.config(text="")
+            self.OH.config(text="")
 
-#Variables = Kw = 1e-14
-#H+=OH in water
-
-
-#Radiobutton(master, text="One", variable=v, value=1).pack(anchor=W)
-#Radiobutton(master, text="Two", variable=v, value=2).pack(anchor=W)
 
 myGUI=Tk()
 myGUI.geometry('600x200+500+200')
