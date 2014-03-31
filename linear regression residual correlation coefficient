@@ -1,0 +1,28 @@
+#Linear Regression in R: relationship between a pair of variables
+#Coded by Ankan Basu, PG, CPG
+#Using a small dataset to show the application in R.
+
+test.anxiety=c(1,2,3,4,5,6)
+exam.score=c(33,27,19,11,10,3)
+plot(test.anxiety,exam.score)
+
+
+#use R's lm command to compute a "linear model" 
+model=lm(exam.score~test.anxiety)
+model.res = resid(model)
+
+#To find the regression Equation, just print model
+model
+
+#Find out R^2 using summary command
+summary(model)
+
+#add the regression line to the scatterplot
+abline(model)
+
+#if you like, check the correlation coefficient too.
+cor(test.anxiety,exam.score)
+
+plot(test.anxiety, model.res, 
+     ylab="Residuals", xlab="Test Anxiety") 
+abline(0, 0)
