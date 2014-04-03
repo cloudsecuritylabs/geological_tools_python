@@ -1,0 +1,40 @@
+#####################################
+total.Fe=125.8 #mg/L 
+molar.mass.Fe=55.845 #g/mol
+#mole.Fe=total.Fe/molar.mass.Fe
+#mole.Fe #print moles of Fe+2
+
+
+####################################
+# Reaction to conver all Fe+2 to Fe+3 using H2O2:
+# Fe(II)+H2O2 → Fe(III)+ OH• +OH−
+# For each mole of Fe+2, we need 1 moles of H2O2
+
+Flow.rate=50 #gpm
+Flow.rate.day=50*60*24 #gpd
+Flow.rate.day #Print flow rate in gallons per day
+Flow.rate.day.L=3.78541*Flow.rate.day 
+Flow.rate.day.L #print flow rate in liters per day.
+
+total.Fe.per.day.mg=Flow.rate.day.L*total.Fe
+total.Fe.per.day.mg
+total.moles.Fe.per.day=total.Fe.per.day.mg/(100*molar.mass.Fe)
+
+total.moles.of.h2o2.required=total.moles.Fe.per.day
+
+
+##########H2O2 requirement ###############33
+molar.mass.h2o2=34.0147 #g/mol
+total.mass.of.h2o2.required=total.moles.of.h2o2.required*molar.mass.h2o2 # in gram
+total.mass.of.h2o2.required
+
+
+#10%H2O2 solution purchased
+weight.of.H2O2.per.L=100 #(10%H2O2, 100 grams in 1000 ml, or 1 L)
+volume.of.H2O2.required.L=total.mass.of.h2o2.required/weight.of.H2O2.per.L
+volume.of.H2O2.required.L
+
+volume.H2O2.in.G=volume.of.H2O2.required.L*0.264172
+volume.H2O2.in.G
+
+sprintf("volume of 10 percent H2O2 solution required is '%.2f' gallons ", volume.H2O2.in.G)
