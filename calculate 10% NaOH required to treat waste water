@@ -1,0 +1,39 @@
+#Programmer: Ankan Basu, PG, CPG, Hydrogeologist
+
+#####################################
+total.acidity=498.2 #mg/L as of CaCO3
+#####################################
+#we need same amount of alkalinity to treat the water.
+required.alkalinity=total.acidity #as of CaCO3
+required.alkalinity
+#To calculate in terms of NaOH:
+#2 NaOH is required per 1 CaCO3
+#convery required alkalinity in terms of NaOH
+molar.mass.NaOH=39.99
+molar.mass.CaCO3=100
+required.alkalinity.as.of.NaOH=required.alkalinity*molar.mass.NaOH/molar.mass.CaCO3
+#######################################
+required.alkalinity.as.of.NaOH # as mg/L 
+#######################################
+
+########################################
+Flow.rate=50 #gpm
+Flow.rate.day=50*60*24 #gpd
+Flow.rate.day #Print flow rate in gallons per day
+Flow.rate.day.L=3.78541*Flow.rate.day 
+Flow.rate.day.L #print flow rate in liters per day.
+
+alk.per.day=Flow.rate.day.L*required.alkalinity.as.of.NaOH*.001 #conver to grams
+alk.per.day #print alkalinity required as of NaOH per day.
+
+################
+#NAOH treatment required###########
+###################################
+weight.NaOH.per.L=10 #10 grams/100 ml or 10 grams in 1 L
+
+volume.NaOH.in.L=alk.per.day/weight.NaOH.per.L # in liters
+volume.NaOH.in.L
+volume.NaOH.in.G=volume.NaOH.in.L*0.264172
+volume.NaOH.in.G
+sprintf("volume of 10 percent NaOH solution required is '%.2f' gallons ", volume.NaOH.in.G)
+
