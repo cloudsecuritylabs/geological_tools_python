@@ -1,0 +1,76 @@
+###############Calculate Volume of Sludge ##############
+# Fe and Al concentrations are considered in the calculation 
+# Programming Language: R
+# Coded By: Ankan Basu, PG, CPG / Hydrogeologist
+# Date: 4/3/2014
+########################################################
+
+#Given, in the sludge, Fe(OH)3 by weight is 2% and Al(OH)3 by weight is 1.5%
+#################Part 1: Calculate Specific Gravity of the sludge ############
+# Follow standard variable assignments
+W.s1= 2 # 3% by weight; weight of dry solid Fe(OH)3 in grams
+W.s2= 1.5 # 1.5% by weight; weight of dry solid Al(OH)3 in grams
+W.w = 100-W.s1-W.s2 #weight of water in 100 gram sample
+W.w #print weight percent of water in the sludge
+
+SG.w= 1  #Specific Gravity of water in g/cc
+SG.s1= 4.25 #Specific Gravity of Fe(0H)3 in g/cc
+SG.s2= 2.42 #Specific Gravity of Al(0H)3 in g/cc
+
+#Calculate Specific Gravity of the sludge 
+#general equation
+#(W.w+W.s1+W.s2)/SG.sl=(W.w/SG.w)+(W.s1/SG.s1)+(W.s2/SG.s2)
+SG.sl=(W.w+W.s1+W.s2)/((W.w/SG.w)+(W.s1/SG.s1)+(W.s2/SG.s2)) 
+
+#print result in g/cc
+SG.sl #Specific gravity of sludge in g/cc
+
+################ Part 2: Calculate mass of Fe and Al oxides##################
+Fe.average=125.9 #mg/L - average concentration of Fe
+Fe.molarmass=55.845 #g/mol
+Feox.molarmass=88.85 #g/mol
+#Concentation in terms of Fe-oxide
+Feox=Fe.average*Feox.molarmass/Fe.molarmass #mg/L
+#print concentration of Fe(OH)3
+Feox #concentration of Fe(OH)3 based on total Fe concentration
+
+Al.average=35 #mg/L
+Al.molarmass=26.98 #g/mol
+Alox.molarmass=78.0036 #g/mol
+#concentration in terms of Al oxide
+Alox=Al.average*Alox.molarmass/Al.molarmass #mg/L
+#print concentration of Al(OH)3
+Alox #concentration of Al(OH)3 based on total Al concentration
+
+############################################
+#Volume of water in the mine to be dewatered
+############################################
+mine.vol.g=1e6 #gllons
+mine.vol.L=3.78541*mine.vol.g
+mine.vol.L # volume of water in mine in liters
+
+############################
+#Calculate Weight of Iron oxide and Aluminum oxide resulting from the mine water
+############################
+Total.Feox=mine.vol.L*Feox*.001 #in g
+Total.Feox #Total mass of Fe-oxide in the dewatered water in g
+Total.Alox=mine.vol.L*Alox*.001 #in g
+Total.Alox #Total mass of Al-oxide in the dewatered water in g
+
+############################
+#Calculate Total Weight of water in the sludge
+############################
+water.weight.in.sludge=(Total.Feox+Total.Alox)*100/(W.s1+W.s2) #g
+water.weight.in.sludge #Total weight of water in the sludge in grams
+
+############################
+#Calculate volume of sludge
+############################
+sludgevolume=water.weight.in.sludge/SG.sl
+sludgevolume # volume of sludge in cc
+
+sludgevolume.L=sludgevolume*.001
+sludgevolume.L # volume of sludge in liters
+
+sludgevolume.g=0.264172*sludgevolume.L
+sludgevolume.g # volume of sludge in liters
